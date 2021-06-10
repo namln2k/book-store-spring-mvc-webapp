@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,9 @@
 	rel="stylesheet" />
 <!-- Customize styles -->
 <link href="<c:url value="/assets/user/style.css" />" rel="stylesheet" />
+<!-- Login styles -->
+<link href="<c:url value="/assets/user/css/login.css" />"
+	rel="stylesheet" />
 <!-- font awesome styles -->
 <link
 	href="<c:url value="/assets/user/font-awesome/css/font-awesome.css" />"
@@ -33,7 +37,8 @@
 <link rel="shortcut icon"
 	href="<c:url value="/assets/user/ico/favicon.ico"/>">
 </head>
-<body>
+<body onload="javascript:init()">
+	<h1 id="top"></h1>
 	<!-- 
 	Upper Header Section 
 -->
@@ -47,14 +52,17 @@
 							class="icon-youtube"></span></a> <a href="#"><span
 							class="icon-tumblr"></span></a>
 					</div>
-					<a class="active" href="<c:url value="/assets/user/index.html"/>">
-						<span class="icon-home"></span> Home
-					</a> <a href="#"><span class="icon-user"></span> My Account</a> <a
-						href="register.html"><span class="icon-edit"></span> Free
-						Register </a> <a href="contact.html"><span class="icon-envelope"></span>
-						Contact us</a> <a href="cart.html"><span
-						class="icon-shopping-cart"></span> 2 Item(s) - <span
-						class="badge badge-warning"> $448.42</span></a>
+					<a id="logOut" class="btn btn-secondary" href="<c:url value="/logout"/>"
+						style="margin: 10px; padding: 5px">Log out </a> <a class="btn btn-success" id="loggedIn"
+						href="#"><span class="icon-user btn"
+						style="margin: 10px; padding: 5px;"></span> My Account</a> <a id="cart"
+						style="margin: 10px; padding: 5px;" class="btn btn-info"
+						href="<c:url value="/cart/"/>"><span
+						class="icon-shopping-cart"></span> ${totalQuantity } Item(s) - <span
+						class="badge badge-warning"> <fmt:formatNumber
+								type="number" maxFractionDigits="0" value="${totalSum }" />đ
+					</span></a>
+
 				</div>
 			</div>
 		</div>
@@ -68,18 +76,18 @@ Lower Header Section
 		<%@include file="/WEB-INF/views/layouts/user/header.jsp"%>
 
 
-	<!-- 
+		<!-- 
 Body 
 -->
 		<decorator:body />
-		
-	<!-- 
+
+		<!-- 
 Footer 
 -->
 		<%@include file="/WEB-INF/views/layouts/user/footer.jsp"%>
 
 	</div>
-	
+
 	<!-- /container -->
 	<div class="copyright">
 		<div class="container">
@@ -107,5 +115,27 @@ Footer
 	<script
 		src="<c:url value="/assets/user/js/jquery.scrollTo-1.4.3.1-min.js"/>"></script>
 	<script src="<c:url value="/assets/user/js/shop.js"/>"></script>
+
+	<script type="text/javascript">
+		function init() {
+			var username = '<%= session.getAttribute("username") %>';
+			var isLoggedIn = '<%= session.getAttribute("loggedIn") %>';
+			document.getElementById("loggedIn").style.visibility = "hidden";
+			document.getElementById("cart").style.visibility = "hidden";
+			document.getElementById("logOut").style.visibility = "hidden";
+			if (isLoggedIn === "true") {
+				document.getElementById("loggedIn").style.visibility = "visible";
+				document.getElementById("cart").style.visibility = "visible";
+				document.getElementById("logOut").style.visibility = "visible";
+				document.getElementById("loggedIn").innerHTML = "Username - "
+						+ username;
+			}
+			var wrongLogin = '<%= session.getAttribute("wrongLogin") %>';
+			if (wrongLogin === "true") {
+				alert("Wrong username or password");
+			}
+		}
+		window.onload = init;
+	</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- 
@@ -51,12 +51,6 @@ Footer
 			<a href="#">ORDER HISTORY</a><br>
 		</div>
 		<div class="span2">
-			<h5>Iinformation</h5>
-			<a href="contact.html">CONTACT</a><br> <a href="#">SITEMAP</a><br>
-			<a href="#">LEGAL NOTICE</a><br> <a href="#">TERMS AND
-				CONDITIONS</a><br> <a href="#">ABOUT US</a><br>
-		</div>
-		<div class="span2">
 			<h5>Our Offer</h5>
 			<a href="#">NEW PRODUCTS</a> <br> <a href="#">TOP SELLERS</a><br>
 			<a href="#">SPECIALS</a><br> <a href="#">MANUFACTURERS</a><br>
@@ -72,4 +66,3 @@ Footer
 		</div>
 	</div>
 </footer>
->

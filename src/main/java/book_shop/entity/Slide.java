@@ -6,6 +6,13 @@ public class Slide {
 	private String caption;
 	private String content;
 	
+	public Slide(int id, String img, String caption, String content) {
+		super();
+		this.id = id;
+		this.img = img;
+		this.caption = caption;
+		this.content = content;
+	}
 	public int getId() {
 		return id;
 	}
